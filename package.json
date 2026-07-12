@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "db:generate": "npx prisma generate",
-    "db:migrate": "npx prisma migrate dev"
+    "db:migrate": "npx prisma migrate dev",
+    "build:template": "npx tsx sandbox-templates/nextjs/build.ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",
@@ -21,6 +22,7 @@
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
     "date-fns": "^4.4.0",
+    "e2b": "^2.32.0",
     "embla-carousel-react": "^8.6.0",
     "inngest": "^4.11.0",
     "input-otp": "^1.4.2",
