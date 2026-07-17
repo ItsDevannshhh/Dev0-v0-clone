@@ -43,7 +43,7 @@ export const codeAgentFunction = inngest.createFunction(
     async ({ event, step }) => {
         const sandboxId = await step.run("get-sandbox-id", async () => {
             const sandbox = await Sandbox.create({
-                template: process.env.E2b_TEMPLATE_ID,
+                template: process.env.E2B_TEMPLATE_ID!,
             });
 
             return sandbox.sandboxId;
@@ -78,7 +78,7 @@ export const codeAgentFunction = inngest.createFunction(
         );
 
         const geminiModel = gemini({
-            model: "gemini-2.5-flash",
+            model: "gemini-3.1-flash-lite",
             step,
             apiKey: process.env.GEMINI_API_KEY!,
             defaultParameters: {
@@ -91,10 +91,13 @@ export const codeAgentFunction = inngest.createFunction(
         } as Parameters<typeof gemini>[0]);
 
         const codeAgent = createAgent({
-            name: "code-agent-ai",
+            name: "code-agent",
             description: "An expert coding agent",
             system: PROMPT,
-            model: gemini({ model: "gemini-2.5-flash" }),
+            model: gemini({
+                model: "gemini-3.1-flash-lite",
+                apiKey: process.env.GEMINI_API_KEY!,
+            }),
             tools: [
                 // 1. Terminal
                 createTool({
@@ -194,6 +197,7 @@ export const codeAgentFunction = inngest.createFunction(
                                 const sanbox = await Sandbox.connect(sandboxId);
 
                                 const contents: any = [];
+                                console.log(contents);
 
                                 for (const file of files) {
                                     const content =
@@ -267,6 +271,8 @@ export const codeAgentFunction = inngest.createFunction(
 
         const fragmentTitle = agentOutputText(fragmentTitleOutput, "Untitled");
         const responseText = agentOutputText(responseOutput, "Here you go");
+
+        console.log(files);
 
         const isError =
             !result.state.data.summary ||
