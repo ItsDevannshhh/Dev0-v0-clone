@@ -8,7 +8,7 @@ import {
     createNetwork,
     createState,
     createTool,
-    gemini,
+    openai,
 } from "@inngest/agent-kit";
 import { FRAGMENT_TITLE_PROMPT, PROMPT, RESPONSE_PROMPT } from "@/lib/prompt";
 import z from "zod";
@@ -77,26 +77,24 @@ export const codeAgentFunction = inngest.createFunction(
             { messages: previousMessages },
         );
 
-        const geminiModel = gemini({
-            model: "gemini-3.1-flash-lite",
-            step,
-            apiKey: process.env.GEMINI_API_KEY!,
+        const gptModel = openai({
+            model: "openai/gpt-4o-mini",
+            apiKey: process.env.AI_API_KEY!,
+            baseUrl: process.env.AI_API_BASE_URL!,
             defaultParameters: {
-                generationConfig: {
-                    temperature: 0,
-                    maxOutputTokens: 8192,
-                    thinkingConfig: { thinkingBudget: 0 },
-                },
+                temperature: 0,
+                max_completion_tokens: 8192,
             },
-        } as Parameters<typeof gemini>[0]);
+        });
 
         const codeAgent = createAgent({
             name: "code-agent",
             description: "An expert coding agent",
             system: PROMPT,
-            model: gemini({
-                model: "gemini-3.1-flash-lite",
-                apiKey: process.env.GEMINI_API_KEY!,
+            model: openai({
+                model: "openai/gpt-4o-mini",
+                apiKey: process.env.AI_API_KEY!,
+                baseUrl: process.env.AI_API_BASE_URL!,
             }),
             tools: [
                 // 1. Terminal
@@ -252,7 +250,7 @@ export const codeAgentFunction = inngest.createFunction(
         const { summary, files } = result.state.data;
 
         const makeTextAgent = (name: string, system: string) =>
-            createAgent({ name, system, model: geminiModel });
+            createAgent({ name, system, model: gptModel });
 
         const fragmentTitleGenerator = makeTextAgent(
             "fragment-title-generator",

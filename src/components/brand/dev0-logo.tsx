@@ -1,24 +1,24 @@
 import { cn } from "@/lib/utils";
 
 /**
- * Props for {@link Chai0Logo}.
+ * Props for {@link Dev0Logo}.
  *
  * @property className - Extra classes applied to the wrapper.
- * @property showWordmark - Whether to render the "chai0" text next to the mark.
+ * @property showWordmark - Whether to render the "Dev0" text next to the mark.
  */
-type Chai0LogoProps = {
+type Dev0LogoProps = {
     className?: string;
     showWordmark?: boolean;
 };
 
 /**
- * The standalone chai0 glyph (SVG mark) without the wordmark.
+ * The standalone Dev0 glyph (SVG mark) without the wordmark.
  *
  * Inherits color via `currentColor` so it adapts to the surrounding text color.
  *
  * @param className - Extra classes applied to the `<svg>` element.
  */
-function Chai0Mark({ className }: { className?: string }) {
+function Dev0Mark({ className }: { className?: string }) {
     return (
         <svg
             viewBox="0 0 44 48"
@@ -45,11 +45,11 @@ function Chai0Mark({ className }: { className?: string }) {
 }
 
 /**
- * The chai0 brand logo: the glyph mark plus an optional "chai0" wordmark.
+ * The Dev0 brand logo: the glyph mark plus an optional "Dev0" wordmark.
  *
- * @param props - See {@link Chai0LogoProps}.
+ * @param props - See {@link Dev0LogoProps}.
  */
-export function Chai0Logo({ className, showWordmark = true }: Chai0LogoProps) {
+export function Dev0Logo({ className, showWordmark = true }: Dev0LogoProps) {
     return (
         <span
             className={cn(
@@ -57,14 +57,14 @@ export function Chai0Logo({ className, showWordmark = true }: Chai0LogoProps) {
                 className,
             )}
         >
-            <Chai0Mark className="h-7 w-auto" />
+            <Dev0Mark className="h-7 w-auto" />
             {showWordmark ? (
                 <span className="text-base font-semibold tracking-tight">
-                    chai0
+                    Dev0
                 </span>
             ) : null}
         </span>
     );
 }
 
-export { Chai0Mark };
+export { Dev0Mark };

@@ -3,7 +3,7 @@ import { template as nextJSTemplate } from "./template";
 import dotenv from "dotenv";
 dotenv.config();
 
-Template.build(nextJSTemplate, "dev0-v0", {
+Template.build(nextJSTemplate, "Dev0-v0", {
     cpuCount: 4,
     memoryMB: 4096,
     onBuildLogs: defaultBuildLogger(),

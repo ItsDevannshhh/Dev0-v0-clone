@@ -1,11 +1,16 @@
-import { onBoardUser } from "@/features/auth/actions";
-
-export default async function RootGroupLayout({
+/**
+ * Layout for the public marketing site. Deliberately does not call
+ * `onBoardUser()` (unlike the dashboard's route group layout) since this
+ * route must be reachable by signed-out visitors.
+ */
+export default function MarketingLayout({
     children,
 }: Readonly<{
     children: React.ReactNode;
 }>) {
-    await onBoardUser();
-
-    return children;
+    return (
+        <div className="relative flex min-h-full flex-1 flex-col overflow-hidden">
+            {children}
+        </div>
+    );
 }
