@@ -195,7 +195,6 @@ export const codeAgentFunction = inngest.createFunction(
                                 const sanbox = await Sandbox.connect(sandboxId);
 
                                 const contents: any = [];
-                                console.log(contents);
 
                                 for (const file of files) {
                                     const content =
@@ -269,8 +268,6 @@ export const codeAgentFunction = inngest.createFunction(
 
         const fragmentTitle = agentOutputText(fragmentTitleOutput, "Untitled");
         const responseText = agentOutputText(responseOutput, "Here you go");
-
-        console.log(files);
 
         const isError =
             !result.state.data.summary ||
